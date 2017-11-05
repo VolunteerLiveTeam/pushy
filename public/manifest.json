@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "VLT Push",
+  "name": "Volunteer Live Team Push",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,7 +10,7 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#9e2c2c",
   "background_color": "#ffffff",
   "gcm_sender_id": "482941778795"
 }
