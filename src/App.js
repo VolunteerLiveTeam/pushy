@@ -158,7 +158,7 @@ class App extends Component {
           <b>We're sorry, your browser doesn't support push notifications</b>
           <br />
           Notifications are supported on Chrome and Firefox on Android, macOS,
-          and Windows
+          and Windows, and Safari on macOS.
         </div>
       );
     }
