@@ -9,6 +9,7 @@ class App extends Component {
     this.state = {
       supported: null,
       enabled: null,
+      processing: false,
       categories: {
         breaking: true,
         event: false,
@@ -31,20 +32,21 @@ class App extends Component {
   };
 
   updateNotifState() {
-    console.log("uNS");
     window.OneSignal.push(() => {
-      console.log("inside uNS");
       this.setState({
-        supported: window.OneSignal.isPushNotificationsSupported()
+        supported: window.OneSignal.isPushNotificationsSupported(),
+        processing: false,
       });
       window.OneSignal.isPushNotificationsEnabled(enabled => {
         this.setState({
-          enabled: enabled
+          enabled: enabled,
+          processing: false,
         });
       });
       window.OneSignal.on("subscriptionChange", isSubscribed => {
         this.setState({
-          enabled: isSubscribed
+          enabled: isSubscribed,
+          processing: false,
         });
         // Have to send tags here to avoid weirdness
         if (isSubscribed) {
@@ -92,6 +94,9 @@ class App extends Component {
   };
 
   subscribe = () => {
+    this.setState({
+      processing: true
+    });
     window.OneSignal.push(() => {
       window.OneSignal.registerForPushNotifications();
       window.OneSignal.setSubscription(true);
@@ -139,6 +144,13 @@ class App extends Component {
   renderContent = () => {
     if (this.state.supported === null) {
       return <div>Please wait...</div>;
+    }
+    if (this.state.processing) {
+      return (
+        <div>
+          <b>Processing subscription, please wait...</b>
+        </div>
+      );
     }
     if (!this.state.supported) {
       return (
