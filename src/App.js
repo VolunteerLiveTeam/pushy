@@ -20,6 +20,16 @@ class App extends Component {
 
   componentDidMount() {
     this.updateNotifState();
+    window.OneSignal.push(() => {
+      window.OneSignal.getTags(tags => {
+        this.setState({
+          categories: zipObject(
+            keys(tags),
+            values(tags).map(x => (x === "yes" ? true : false))
+          )
+        });
+      });
+    });
   }
 
   sendTags = () => {
@@ -48,16 +58,6 @@ class App extends Component {
           enabled: isSubscribed,
           processing: false,
         });
-        if (isSubscribed) {
-          window.OneSignal.getTags(tags => {
-            this.setState({
-              categories: zipObject(
-                keys(tags),
-                values(tags).map(x => (x === "yes" ? true : false))
-              )
-            });
-          });
-        }
         // Have to send tags here to avoid weirdness
         if (isSubscribed && sendTags) {
           this.sendTags();
