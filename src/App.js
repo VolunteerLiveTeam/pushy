@@ -31,7 +31,7 @@ class App extends Component {
     );
   };
 
-  updateNotifState() {
+  updateNotifState(sendTags = false) {
     window.OneSignal.push(() => {
       this.setState({
         supported: window.OneSignal.isPushNotificationsSupported(),
@@ -48,8 +48,18 @@ class App extends Component {
           enabled: isSubscribed,
           processing: false,
         });
-        // Have to send tags here to avoid weirdness
         if (isSubscribed) {
+          window.OneSignal.getTags(tags => {
+            this.setState({
+              categories: zipObject(
+                keys(tags),
+                values(tags).map(x => (x === "yes" ? true : false))
+              )
+            });
+          });
+        }
+        // Have to send tags here to avoid weirdness
+        if (isSubscribed && sendTags) {
           this.sendTags();
         }
       });
@@ -168,7 +178,7 @@ class App extends Component {
           <b>Subscribed!</b>
           <br />
           {this.renderCheckboxes()}
-          <button onClick={this.sendTags}>Update Notification Preferences</button>
+          <button onClick={this.sendTags.bind(this, true)}>Update Notification Preferences</button>
           <button onClick={this.unsubscribe}>Unsubscribe</button>
         </div>
       );
