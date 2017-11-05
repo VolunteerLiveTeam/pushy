@@ -1,0 +1,31 @@
+body {
+  background-image: url('bg.png');
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 80px;
+}
+
+.App-header {
+  background-image: linear-gradient(to right, #AF2D2D, #8E2A2A);
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-main {
+  padding: 4em;
+  display: block;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+}
