@@ -45,18 +45,18 @@ class App extends Component {
     window.OneSignal.push(() => {
       this.setState({
         supported: window.OneSignal.isPushNotificationsSupported(),
-        processing: false,
+        processing: false
       });
       window.OneSignal.isPushNotificationsEnabled(enabled => {
         this.setState({
           enabled: enabled,
-          processing: false,
+          processing: false
         });
       });
       window.OneSignal.on("subscriptionChange", isSubscribed => {
         this.setState({
           enabled: isSubscribed,
-          processing: false,
+          processing: false
         });
         // Have to send tags here to avoid weirdness
         if (isSubscribed && sendTags) {
@@ -178,7 +178,9 @@ class App extends Component {
           <b>Subscribed!</b>
           <br />
           {this.renderCheckboxes()}
-          <button onClick={this.sendTags.bind(this, true)}>Update Notification Preferences</button>
+          <button onClick={this.sendTags.bind(this, true)}>
+            Update Notification Preferences
+          </button>
           <button onClick={this.unsubscribe}>Unsubscribe</button>
         </div>
       );
@@ -203,7 +205,16 @@ class App extends Component {
           <img src="logo.png" className="App-logo" alt="logo" />
           <h1 className="App-title">VLT Push Notifications</h1>
         </header>
-        <div className="App-main">{this.renderContent()}</div>
+        <div className="App-main">
+          {this.renderContent()}
+          <small>
+            Push notifications are powered by OneSignal. By using this service,
+            you agree to{" "}
+            <a href="https://onesignal.com/privacy_policy">
+              OneSignal's privacy policy.
+            </a>
+          </small>
+        </div>
       </div>
     );
   }
