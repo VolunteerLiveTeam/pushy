@@ -153,7 +153,15 @@ class App extends Component {
 
   renderContent = () => {
     if (this.state.supported === null) {
-      return <div>Please wait...</div>;
+      return (
+        <div>
+          Please wait...<br />
+          <small>
+            If you're using an ad blocker or Privacy Badger, please unblock{" "}
+            <code>onesignal.com</code> and <code>cdn.onesignal.com</code>.
+          </small>
+        </div>
+      );
     }
     if (this.state.processing) {
       return (
